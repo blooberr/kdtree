@@ -20,7 +20,6 @@ type Node struct {
 
 func New(size int) *BPQueue {
 	bpq := BPQueue{MaxSize: size}
-	//bpq.Queue = make(*Node, size)
 	return &bpq
 }
 
@@ -42,8 +41,10 @@ func GetRightChildren(index int) int {
 	return 2*index + 2
 }
 
-func (bpq *BPQueue) Enqueue(node Node) (*Node) {
-	log.Printf("enqueue - %#v \n", node)
+func (bpq *BPQueue) Enqueue(v interface{}, priority float64) (*Node) {
+	log.Printf("enqueue - %#v with priority %f\n", v, priority)
+
+  node := Node{Priority: priority, Inner: v}
 
   bpq.Insert(node)
 
@@ -133,17 +134,13 @@ func (bpq *BPQueue) Delete() *Node {
 
   log.Printf("after max-heapify \n")
   for _, node := range bpq.Queue {
-    log.Printf("[%f] ", node.Priority)
+    log.Printf("[%f] -< %#v", node.Priority, node.Inner)
   }
 
   return head
 }
 
 func (bpq *BPQueue) Swap(one int, two int) {
-  log.Printf("swapping position %d with %d \n", one, two)
-  log.Printf("node at one %#v \n", bpq.Queue[one])
-  log.Printf("node at two %#v \n", bpq.Queue[two])
-
   bpq.Queue[one], bpq.Queue[two] = bpq.Queue[two], bpq.Queue[one]
 }
 

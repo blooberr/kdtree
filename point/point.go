@@ -7,11 +7,12 @@ import(
 
 type Point struct {
   Coords []float64
+  Dimension int
 }
 
 func New(dimension ...float64) *Point {
   log.Printf("dimension - %#v \n", dimension)
-  return &Point{Coords: dimension}
+  return &Point{Coords: dimension, Dimension: len(dimension)}
 }
 
 func (p *Point) Size() int {
